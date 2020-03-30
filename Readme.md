@@ -1,9 +1,9 @@
 # Spring Boot Distributed Cache
 
-Coffee Boots project implements (property-based) configuring of multiple backend providers.
+Spring Boot Distributed Cache project implements (property-based) configuring of multiple backend providers.
 Default implementation is couchbase.
 
-It works best with [Spring Boot](https://github.com/spring-projects/spring-boot), implementing [auto-configuration]() mechanism.
+It works best with [Spring Boot](https://github.com/spring-projects/spring-boot), implementing [auto-configuration](https://github.com/previousdeveloper/spring-boot-distributed-data-cache) mechanism.
 
 ```xml
 <dependency>
