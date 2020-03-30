@@ -71,7 +71,7 @@ distributed:
       bucket: "buckname"
 ```
 
-- Couchase Provider
+- Redis Provider
 ```
 distributed:
   cache:
@@ -79,6 +79,6 @@ distributed:
     platform: redis
     redis:
       url: "localhost"
-      username: "bucketusername"
-      password: "bucketpassword"
+      username: "username"
+      password: "password"
 ```
