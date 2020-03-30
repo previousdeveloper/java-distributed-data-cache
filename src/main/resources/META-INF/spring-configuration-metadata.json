@@ -1,0 +1,38 @@
+{
+  "groups": [
+    {
+      "name": "distributed.cache",
+      "type": "com.trendyol.distributed.data.cache.configuration.BaseConfiguration",
+      "sourceType": "com.trendyol.distributed.data.cache.configuration.BaseConfiguration"
+    }
+  ],
+  "properties": [
+    {
+      "name": "distributed.cache.couchbase",
+      "type": "com.trendyol.distributed.data.cache.configuration.CouchbaseCacheConfiguration",
+      "sourceType": "com.trendyol.distributed.data.cache.configuration.CouchbaseCacheConfiguration$couchbase"
+    },
+    {
+      "name": "distributed.cache.enabled",
+      "type": "java.lang.String",
+      "sourceType": "com.trendyol.distributed.data.cache.configuration.BaseConfiguration"
+    },
+    {
+      "name": "distributed.cache.platform",
+      "type": "java.lang.Enum",
+      "sourceType": "com.trendyol.distributed.data.cache.configuration.BaseConfiguration"
+    },
+    {
+      "name": "couchbase.password",
+      "type": "java.lang.String",
+      "sourceType": "com.trendyol.distributed.data.cache.configuration.CouchbaseCacheConfiguration$couchbase.password"
+    }
+  ],
+  "hints": [
+    {
+      "name": "distributed.cache.platform",
+      "providers": [
+      ]
+    }
+  ]
+}
