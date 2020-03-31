@@ -26,6 +26,11 @@ public class ConditionalBeanCreation {
     }
 
     @Bean
+    CacheOperation cacheOperation(CacheProvider provider) {
+        return new CacheOperation(provider);
+    }
+
+    @Bean
     DataCacheInterceptor dataCacheInterceptor(CacheOperation cacheOperation) {
         return new DataCacheInterceptor(cacheOperation, new HashUtils());
     }
@@ -43,11 +48,6 @@ public class ConditionalBeanCreation {
     @Bean
     public CacheProvider provider(Bucket bucket) {
         return allCachePlatforms(bucket).getOrDefault(baseConfiguration.getPlatform().name(), new DefaultCacheProvider());
-    }
-
-    @Bean
-    CacheOperation cacheOperation(CacheProvider provider) {
-        return new CacheOperation(provider);
     }
 
     @ConditionalOnProperty(prefix = "distributed.cache", name = "platform", matchIfMissing = true, havingValue = "COUCHBASE")
