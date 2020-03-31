@@ -3,7 +3,7 @@
 Spring Boot Distributed Cache project implements (property-based) configuring of multiple backend providers.
 Default implementation is couchbase.
 
-It works best with [Spring Boot](https://github.com/spring-projects/spring-boot), implementing [auto-configuration](https://github.com/previousdeveloper/spring-boot-distributed-data-cache) mechanism.
+It works best with [Spring Boot](https://github.com/spring-projects/spring-boot), implementing [auto-com.trendyol.spring.boot.cache.core.configuration](https://github.com/previousdeveloper/spring-boot-distributed-data-cache) mechanism.
 
 ```xml
 <dependency>
@@ -21,38 +21,38 @@ It works best with [Spring Boot](https://github.com/spring-projects/spring-boot)
     	@Value("${welcome.message}")
     	private String welcomeMessage;
 
-        @ResponseCache
+        @provider.ResponseCache
     	@GetMapping("/welcome")
     	public String retrieveWelcomeMessage() {
     		return welcomeMessage;
     	}
     
     	@Autowired
-    	private BasicConfiguration configuration;
+    	private BasicConfiguration com.trendyol.spring.boot.cache.core.configuration;
     
-    	@ResponseCache
-    	@RequestMapping("/dynamic-configuration")
+    	@provider.ResponseCache
+    	@RequestMapping("/dynamic-com.trendyol.spring.boot.cache.core.configuration")
     	public Map<String, Object> dynamicConfiguration() {
     		Map<String, Object> map = new HashMap<>();
-    		map.put("message", configuration.getMessage());
-    		map.put("number", configuration.getNumber());
-    		map.put("key", configuration.isValue());
+    		map.put("message", com.trendyol.spring.boot.cache.core.configuration.getMessage());
+    		map.put("number", com.trendyol.spring.boot.cache.core.configuration.getNumber());
+    		map.put("key", com.trendyol.spring.boot.cache.core.configuration.isValue());
     		return map;
     	}
     }
 ```
-ResponseCache annonation automatically caches your response to backend provider.
+provider.ResponseCache annonation automatically caches your response to backend provider.
 
 ```java
 //Cache if response header hash this key
-@ResponseCache(responseHeaderName="bla")
+@provider.ResponseCache(responseHeaderName="bla")
 
 
 //Cache if enabled
-@ResponseCache(enabled=true)
+@provider.ResponseCache(enabled=true)
 
 //Cache expire time
-@ResponseCache(expireInMinutes=10)
+@provider.ResponseCache(expireInMinutes=10)
 ```
 
 ### Configuration Properties
