@@ -1,17 +1,28 @@
 # Spring Boot Distributed Cache
 
 Spring Boot Distributed Cache project implements (property-based) configuring of multiple backend providers.
-Default implementation is couchbase.
 
-It works best with [Spring Boot](https://github.com/spring-projects/spring-boot), implementing [auto-com.trendyol.spring.boot.cache.core.configuration](https://github.com/previousdeveloper/spring-boot-distributed-data-cache) mechanism.
+It works best with [Spring Boot](https://github.com/spring-projects/spring-boot), implementing [auto-configuration](https://github.com/previousdeveloper/spring-boot-distributed-data-cache) mechanism.
+
+## Spring Boot Starter
+```xml
+<dependency>
+    <groupId>com.trendyol</groupId>
+    <artifactId>distributed-data-cache-spring-boot-starter</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+</dependency>
+```
+
+## Quarkus Starter
 
 ```xml
 <dependency>
     <groupId>com.trendyol</groupId>
-    <artifactId>spring-boot-distributed-data-cache</artifactId>
+    <artifactId>distributed-data-cache-quarkus-core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 </dependency>
 ```
+
 ### Getting Started
 
 ```java
@@ -21,27 +32,27 @@ It works best with [Spring Boot](https://github.com/spring-projects/spring-boot)
     	@Value("${welcome.message}")
     	private String welcomeMessage;
 
-        @com.trendyol.distributed.data.cache.core.provider.ResponseCache
+        @ResponseCache
     	@GetMapping("/welcome")
     	public String retrieveWelcomeMessage() {
     		return welcomeMessage;
     	}
     
     	@Autowired
-    	private BasicConfiguration com.trendyol.spring.boot.cache.core.configuration;
+    	private BasicConfiguration configuration;
     
-    	@com.trendyol.distributed.data.cache.core.provider.ResponseCache
-    	@RequestMapping("/dynamic-com.trendyol.spring.boot.cache.core.configuration")
+    	@ResponseCache
+    	@RequestMapping("/dynamic-configuration")
     	public Map<String, Object> dynamicConfiguration() {
     		Map<String, Object> map = new HashMap<>();
-    		map.put("message", com.trendyol.spring.boot.cache.core.configuration.getMessage());
-    		map.put("number", com.trendyol.spring.boot.cache.core.configuration.getNumber());
-    		map.put("key", com.trendyol.spring.boot.cache.core.configuration.isValue());
+    		map.put("message", configuration.getMessage());
+    		map.put("number", configuration.getNumber());
+    		map.put("key", configuration.isValue());
     		return map;
     	}
     }
 ```
-@ResponseCache annonation automatically caches your response to backend com.trendyol.distributed.data.cache.core.provider.
+ResponseCache annonation automatically caches your response to backend provider.
 
 ```java
 //Cache if response header hash this key
@@ -56,7 +67,6 @@ It works best with [Spring Boot](https://github.com/spring-projects/spring-boot)
 ```
 
 ### Configuration Properties
-### /src/main/resources/application.yaml
 
 - Couchase Provider
 ```
@@ -81,4 +91,13 @@ distributed:
       url: "localhost"
       username: "username"
       password: "password"
+```
+
+
+- Http Backend Provider
+```
+distributed:
+  cache:
+    enabled: true
+    url: "http://localhost:8083/config/age"
 ```

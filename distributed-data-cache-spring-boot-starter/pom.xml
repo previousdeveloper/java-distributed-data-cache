@@ -17,7 +17,7 @@
         <dependency>
             <groupId>com.trendyol</groupId>
             <artifactId>distributed-data-cache-spring-boot-core</artifactId>
-            <version>0.0.1</version>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
