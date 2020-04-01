@@ -41,18 +41,18 @@ It works best with [Spring Boot](https://github.com/spring-projects/spring-boot)
     	}
     }
 ```
-com.trendyol.distributed.data.cache.core.provider.ResponseCache annonation automatically caches your response to backend com.trendyol.distributed.data.cache.core.provider.
+@ResponseCache annonation automatically caches your response to backend com.trendyol.distributed.data.cache.core.provider.
 
 ```java
 //Cache if response header hash this key
-@com.trendyol.distributed.data.cache.core.provider.ResponseCache(responseHeaderName="bla")
+@ResponseCache(responseHeaderName="bla")
 
 
 //Cache if enabled
-@com.trendyol.distributed.data.cache.core.provider.ResponseCache(enabled=true)
+@ResponseCache(enabled=true)
 
 //Cache expire time
-@com.trendyol.distributed.data.cache.core.provider.ResponseCache(expireInMinutes=10)
+@ResponseCache(expireInMinutes=10)
 ```
 
 ### Configuration Properties
