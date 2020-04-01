@@ -5,7 +5,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
-import com.trendyol.distributed.data.cache.core.transport.utils.ByteArrayUtil;
+import com.trendyol.distributed.data.cache.core.utils.ByteArrayUtil;
 
 import java.io.IOException;
 import java.util.Objects;

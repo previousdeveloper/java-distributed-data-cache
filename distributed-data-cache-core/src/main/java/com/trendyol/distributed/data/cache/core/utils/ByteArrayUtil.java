@@ -1,4 +1,4 @@
-package com.trendyol.distributed.data.cache.core.transport.utils;
+package com.trendyol.distributed.data.cache.core.utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
