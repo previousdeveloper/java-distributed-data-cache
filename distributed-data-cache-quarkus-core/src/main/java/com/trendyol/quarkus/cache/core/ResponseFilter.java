@@ -1,6 +1,6 @@
 package com.trendyol.quarkus.cache.core;
 
-import provider.CacheOperation;
+import com.trendyol.distributed.data.cache.core.CacheOperation;
 
 import javax.inject.Inject;
 import javax.ws.rs.container.ContainerRequestContext;

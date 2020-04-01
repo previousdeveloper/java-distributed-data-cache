@@ -3,13 +3,13 @@ package com.trendyol.spring.boot.cache.core.configuration;
 import com.couchbase.client.java.Bucket;
 import com.couchbase.client.java.Cluster;
 import com.couchbase.client.java.CouchbaseCluster;
+import com.trendyol.distributed.data.cache.core.*;
+import com.trendyol.distributed.data.cache.core.transport.HttpClientWrapper;
 import com.trendyol.spring.boot.cache.core.DataCacheInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import provider.*;
-import utils.HashUtils;
+import com.trendyol.distributed.data.cache.core.utils.HashUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +21,8 @@ public class ConditionalBeanCreation {
     public BaseConfiguration baseConfiguration;
 
     @Bean
-    CouchbaseCacheProvider couchbaseCacheProvider(Bucket bucket) {
-        return new CouchbaseCacheProvider(bucket);
+    CouchbaseCacheProvider couchbaseCacheProvider() {
+        return new CouchbaseCacheProvider(getBucket());
     }
 
     @Bean
@@ -36,6 +36,11 @@ public class ConditionalBeanCreation {
     }
 
     @Bean
+    HttpCacheProvider httpCacheProvider(HttpClientWrapper httpClientWrapper) {
+        return new HttpCacheProvider(httpClientWrapper);
+    }
+
+    @Bean
     RedisCacheProvider redisCacheProvider() {
         return new RedisCacheProvider();
     }
@@ -46,13 +51,11 @@ public class ConditionalBeanCreation {
     }
 
     @Bean
-    public CacheProvider provider(Bucket bucket) {
-        return allCachePlatforms(bucket).getOrDefault(baseConfiguration.getPlatform().name(), new DefaultCacheProvider());
+    public CacheProvider provider(HttpClientWrapper httpClientWrapper) {
+        return allCachePlatforms(httpClientWrapper).getOrDefault(baseConfiguration.getPlatform().name(), new DefaultCacheProvider());
     }
 
-    @ConditionalOnProperty(prefix = "distributed.cache", name = "platform", matchIfMissing = true, havingValue = "COUCHBASE")
-    @Bean
-    public Bucket bucket() {
+    public Bucket getBucket() {
         CouchbaseCacheConfiguration couchbaseCacheConfiguration = baseConfiguration.getCouchbase();
         Cluster cluster = CouchbaseCluster.create(couchbaseCacheConfiguration.getBootstrapHosts());
         cluster.authenticate(couchbaseCacheConfiguration.getUsername(), couchbaseCacheConfiguration.getPassword());
@@ -60,13 +63,14 @@ public class ConditionalBeanCreation {
     }
 
 
-    private Map<String, CacheProvider> allCachePlatforms(Bucket bucket) {
+    private Map<String, CacheProvider> allCachePlatforms(HttpClientWrapper httpClientWrapper) {
         Map<String, CacheProvider> cachePlatforms = new HashMap<>();
         if (CachePlatformType.COUCHBASE.name().equals(baseConfiguration.getPlatform().name())) {
-            cachePlatforms.put(CachePlatformType.COUCHBASE.name(), couchbaseCacheProvider(bucket));
-        } else {
+            cachePlatforms.put(CachePlatformType.COUCHBASE.name(), couchbaseCacheProvider());
+        } else if (CachePlatformType.REDIS.name().equals(baseConfiguration.getPlatform().name())) {
             cachePlatforms.put(CachePlatformType.REDIS.name(), redisCacheProvider());
-
+        } else if (CachePlatformType.HTTP.name().equals(baseConfiguration.getPlatform().name())) {
+            cachePlatforms.put(CachePlatformType.HTTP.name(), httpCacheProvider(httpClientWrapper));
         }
 
         return cachePlatforms;

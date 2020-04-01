@@ -29,6 +29,7 @@
             <artifactId>distributed-data-cache-core</artifactId>
             <version>0.0.1</version>
         </dependency>
+
         <dependency>
             <groupId>com.couchbase.client</groupId>
             <artifactId>java-client</artifactId>

@@ -9,6 +9,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.MethodParameter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
@@ -17,15 +18,15 @@ import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
-import provider.CacheOperation;
-import provider.MethodAnnotationMapping;
-import provider.ResponseCache;
+import com.trendyol.distributed.data.cache.core.CacheOperation;
+import com.trendyol.distributed.data.cache.core.MethodAnnotationMapping;
+import com.trendyol.distributed.data.cache.core.ResponseCache;
 
 import java.time.Duration;
 
 @RestControllerAdvice
 @EnableAutoConfiguration
-@ComponentScan(basePackages = "com.trendyol.springboot.data.cache", lazyInit = true)
+@ComponentScan(basePackages = "com.trendyol.springboot.data.cache.core", lazyInit = true)
 @ConditionalOnProperty(name = "distributed.cache.enabled")
 public class CustomResponseBodyAdviceAdapter implements ResponseBodyAdvice<Object> {
     private static final Logger logger = LoggerFactory.getLogger(CustomResponseBodyAdviceAdapter.class);
@@ -58,10 +59,10 @@ public class CustomResponseBodyAdviceAdapter implements ResponseBodyAdvice<Objec
         if (serverHttpRequest instanceof ServletServerHttpRequest &&
                 serverHttpResponse instanceof ServletServerHttpResponse) {
             try {
-                  ResponseCache responseCache = MethodAnnotationMapping.getMethodAnnotationPair().get(methodParameter.getMethod().getName());
+                ResponseCache responseCache = MethodAnnotationMapping.getMethodAnnotationPair().get(methodParameter.getMethod().getName());
                 Object key = ((ServletServerHttpRequest) serverHttpRequest).getServletRequest().getAttribute("request-hash");
                 int responseStatus = ((ServletServerHttpResponse) serverHttpResponse).getServletResponse().getStatus();
-                if (responseStatus == 200) {
+                if (responseStatus == HttpStatus.OK.value()) {
                     cacheOperation.createCache(key.toString(), objectMapper.writeValueAsBytes(o), Duration.ofMinutes(responseCache.expireInMinutes()));
                 }
             } catch (JsonProcessingException e) {

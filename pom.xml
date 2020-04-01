@@ -35,8 +35,6 @@
         <mockito.version>3.3.3</mockito.version>
         <jmh.version>1.23</jmh.version>
     </properties>
-    <dependencies>
-    </dependencies>
     <build>
         <pluginManagement>
             <plugins>

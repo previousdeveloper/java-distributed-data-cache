@@ -3,8 +3,12 @@ package com.trendyol.quarkus.cache.core;
 import com.couchbase.client.java.Bucket;
 import com.couchbase.client.java.Cluster;
 import com.couchbase.client.java.CouchbaseCluster;
+import com.trendyol.distributed.data.cache.core.*;
+import com.trendyol.distributed.data.cache.core.CachePlatformType;
+import com.trendyol.distributed.data.cache.core.CacheProvider;
+import com.trendyol.distributed.data.cache.core.CouchbaseCacheProvider;
+import com.trendyol.distributed.data.cache.core.DefaultCacheProvider;
 import io.quarkus.arc.DefaultBean;
-import provider.*;
 
 import javax.enterprise.context.Dependent;
 import javax.ws.rs.Produces;

@@ -1,4 +1,4 @@
-package provider;
+package com.trendyol.distributed.data.cache.core;
 
 import java.time.Duration;
 

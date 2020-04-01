@@ -21,7 +21,7 @@ It works best with [Spring Boot](https://github.com/spring-projects/spring-boot)
     	@Value("${welcome.message}")
     	private String welcomeMessage;
 
-        @provider.ResponseCache
+        @com.trendyol.distributed.data.cache.core.provider.ResponseCache
     	@GetMapping("/welcome")
     	public String retrieveWelcomeMessage() {
     		return welcomeMessage;
@@ -30,7 +30,7 @@ It works best with [Spring Boot](https://github.com/spring-projects/spring-boot)
     	@Autowired
     	private BasicConfiguration com.trendyol.spring.boot.cache.core.configuration;
     
-    	@provider.ResponseCache
+    	@com.trendyol.distributed.data.cache.core.provider.ResponseCache
     	@RequestMapping("/dynamic-com.trendyol.spring.boot.cache.core.configuration")
     	public Map<String, Object> dynamicConfiguration() {
     		Map<String, Object> map = new HashMap<>();
@@ -41,18 +41,18 @@ It works best with [Spring Boot](https://github.com/spring-projects/spring-boot)
     	}
     }
 ```
-provider.ResponseCache annonation automatically caches your response to backend provider.
+com.trendyol.distributed.data.cache.core.provider.ResponseCache annonation automatically caches your response to backend com.trendyol.distributed.data.cache.core.provider.
 
 ```java
 //Cache if response header hash this key
-@provider.ResponseCache(responseHeaderName="bla")
+@com.trendyol.distributed.data.cache.core.provider.ResponseCache(responseHeaderName="bla")
 
 
 //Cache if enabled
-@provider.ResponseCache(enabled=true)
+@com.trendyol.distributed.data.cache.core.provider.ResponseCache(enabled=true)
 
 //Cache expire time
-@provider.ResponseCache(expireInMinutes=10)
+@com.trendyol.distributed.data.cache.core.provider.ResponseCache(expireInMinutes=10)
 ```
 
 ### Configuration Properties

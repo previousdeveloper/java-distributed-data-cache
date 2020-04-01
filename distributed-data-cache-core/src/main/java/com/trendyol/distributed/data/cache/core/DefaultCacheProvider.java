@@ -1,8 +1,8 @@
-package provider;
+package com.trendyol.distributed.data.cache.core;
 
 import java.time.Duration;
 
-public class HttpCacheProvider implements CacheProvider{
+public class DefaultCacheProvider implements CacheProvider {
     @Override
     public byte[] get(String key) {
         return new byte[0];

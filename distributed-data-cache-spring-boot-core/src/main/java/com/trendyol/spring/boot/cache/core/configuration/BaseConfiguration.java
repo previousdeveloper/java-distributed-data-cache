@@ -1,8 +1,8 @@
 package com.trendyol.spring.boot.cache.core.configuration;
 
+import com.trendyol.distributed.data.cache.core.CachePlatformType;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-import provider.CachePlatformType;
 
 @Configuration(proxyBeanMethods = false)
 @ConfigurationProperties(prefix = "distributed.cache")

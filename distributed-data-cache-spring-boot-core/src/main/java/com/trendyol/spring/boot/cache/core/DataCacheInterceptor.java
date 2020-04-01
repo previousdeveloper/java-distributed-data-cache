@@ -6,10 +6,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-import provider.CacheOperation;
-import provider.MethodAnnotationMapping;
-import provider.ResponseCache;
-import utils.HashUtils;
+import com.trendyol.distributed.data.cache.core.CacheOperation;
+import com.trendyol.distributed.data.cache.core.MethodAnnotationMapping;
+import com.trendyol.distributed.data.cache.core.ResponseCache;
+import com.trendyol.distributed.data.cache.core.utils.HashUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +19,7 @@ import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 @Lazy
 @ConditionalOnProperty(name = "distributed.cache.enabled", havingValue = "true")
-@ComponentScan(basePackages = "com.trendyol.springboot.data.cache", lazyInit = true)
+@ComponentScan(basePackages = "com.trendyol.springboot.data.cache.core", lazyInit = true)
 public class DataCacheInterceptor extends HandlerInterceptorAdapter {
 
     private final CacheOperation cacheOperation;
@@ -36,7 +36,7 @@ public class DataCacheInterceptor extends HandlerInterceptorAdapter {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         ResponseCache responseCache = MethodAnnotationMapping.getMethodAnnotationPair().get(handlerMethod.getMethod().getName());
 
-        if (responseCache.enabled() && "GET".equalsIgnoreCase(requestServlet.getMethod())) {
+        if (Objects.nonNull(responseCache) && responseCache.enabled() && "GET".equalsIgnoreCase(requestServlet.getMethod())) {
             String key = hashUtils.hash(requestServlet.getQueryString());
             byte[] s = cacheOperation.getCache(key);
 
