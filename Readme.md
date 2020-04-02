@@ -58,7 +58,6 @@ ResponseCache annonation automatically caches your response to backend provider.
 //Cache if response header hash this key
 @ResponseCache(responseHeaderName="bla")
 
-
 //Cache if enabled
 @ResponseCache(enabled=true)
 
