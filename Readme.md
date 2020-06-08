@@ -4,6 +4,7 @@ Spring Boot Distributed Cache project implements (property-based) configuring of
 
 It works best with [Spring Boot](https://github.com/spring-projects/spring-boot), implementing [auto-configuration](https://github.com/previousdeveloper/spring-boot-distributed-data-cache) mechanism.
 
+
 ## Spring Boot Starter
 ```xml
 <dependency>
